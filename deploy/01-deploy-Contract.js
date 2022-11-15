@@ -13,7 +13,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     const arguments = [
         //args
     ]
-    const contractName = await deploy("ContractName", {
+    const contractName = await deploy("GetPriceFeedData", {
         from: deployer,
         args: arguments,
         log: true,
@@ -23,7 +23,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     // Verify the deployment
     if (
         !developmentChains.includes(network.name) &&
-        process.env.VERIFY &&
+        process.env.VERIFY == true &&
         (process.env.POLYGONSCAN_API_KEY || process.env.ETHERSCAN_API_KEY)
     ) {
         log("Verifying...")
