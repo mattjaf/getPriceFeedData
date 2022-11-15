@@ -19,17 +19,17 @@ const { developmentChains } = require("../../helper-hardhat-config")
         })
 
         describe("checking libray functions", function () {
-            it("ETH -- getConversionRateTokenToUsd", async function () {
+            it("ETH -- getConversionRate", async function () {
                 const conversionRateUsdToWei = await getPriceFeedData.getConversionRateUsdToWei(1, ETH_TO_USD)
                 const conversionRateTokenToUsd = await getPriceFeedData.getConversionRateTokenToUsd(1, ETH_TO_USD, 2)
                 expect(conversionRateUsdToWei.mul(conversionRateTokenToUsd).div(100)).to.be.closeTo(ethers.utils.parseEther("1.0"), 1000)
             })
-            it("MATIC -- getConversionRateTokenToUsd", async function () {
+            it("MATIC -- getConversionRate", async function () {
                 const conversionRateUsdToWei = await getPriceFeedData.getConversionRateUsdToWei(1, MATIC_TO_USD)
                 const conversionRateTokenToUsd = await getPriceFeedData.getConversionRateTokenToUsd(1, MATIC_TO_USD, 2)
                 expect(conversionRateUsdToWei.mul(conversionRateTokenToUsd).div(100)).to.be.closeTo(ethers.utils.parseEther("1.0"), 1000)
             })
-            it("BTC -- getConversionRateTokenToUsd", async function () {
+            it("BTC -- getConversionRate", async function () {
                 const conversionRateUsdToWei = await getPriceFeedData.getConversionRateUsdToWei(1, BTC_TO_USD)
                 const conversionRateTokenToUsd = await getPriceFeedData.getConversionRateTokenToUsd(1, BTC_TO_USD, 2)
                 expect(conversionRateUsdToWei.mul(conversionRateTokenToUsd).div(100)).to.be.closeTo(ethers.utils.parseEther("1.0"), 10000)
