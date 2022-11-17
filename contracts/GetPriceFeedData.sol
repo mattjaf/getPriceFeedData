@@ -55,7 +55,7 @@ library GetPriceFeedData {
     function getConversionRateTokenToUsd(
         uint256 _tokenAmount,
         address _contractAddress,
-        uint256 _decimalPlace
+        uint8 _decimalPlace
     ) public view returns (uint256) {
         uint256 price = extractAnswer(_contractAddress);
         uint256 tokenAmountInUsd = (price * (10**_decimalPlace) * _tokenAmount) / 1e18;
@@ -76,7 +76,7 @@ library GetPriceFeedData {
     function getConversionRateUsdToWei(
         uint256 _usdAmount,
         address _contractAddress,
-        uint256 _decimalPlace
+        uint8 _decimalPlace
     ) public view returns (uint256) {
         uint256 price = extractAnswer(_contractAddress);
         uint256 usdToWei = (_usdAmount * 1e18 * (10**_decimalPlace)) /
