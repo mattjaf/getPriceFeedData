@@ -66,15 +66,21 @@ library GetPriceFeedData {
      * @dev Method for retrieving the amount of WEI equal to the provided USD value.
      * @param _usdAmount is the amount in USD to get converted in to WEI.
      * @param _contractAddress is the address of the chainlink price feed contract address.
+     * @param _decimalPlace is the decimal place of pricefeed data
      *
+     * @dev Suggest this to be calculated to the 8th decimal place incase a token has value less than a penny.
+     *
+     * DISCLAIMER: the return result might be a fraction of a wei off due to truncation
+     * might have + 1 wei
      */
-    function getConversionRateUsdToWei(uint256 _usdAmount, address _contractAddress)
-        public
-        view
-        returns (uint256)
-    {
+    function getConversionRateUsdToWei(
+        uint256 _usdAmount,
+        address _contractAddress,
+        uint256 _decimalPlace
+    ) public view returns (uint256) {
         uint256 price = extractAnswer(_contractAddress);
-        uint256 usdToWei = (_usdAmount * 1e20) / ((price * 100) / 1e18);
+        uint256 usdToWei = (_usdAmount * 1e18 * (10**_decimalPlace)) /
+            ((price * (10**_decimalPlace)) / 1e18);
         return usdToWei;
     }
 }
