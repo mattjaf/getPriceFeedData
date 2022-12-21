@@ -7,7 +7,7 @@ pragma solidity ^0.8.0;
  * contract addresses can be found at https://docs.chain.link/data-feeds/price-feeds/addresses
  *
  */
-contract GetPriceFeedDataV8 {
+library GetPriceFeedDataV8 {
 
     /**
      * @dev Method for externally calling the price feed contract and extracting the answer casted to unit256
