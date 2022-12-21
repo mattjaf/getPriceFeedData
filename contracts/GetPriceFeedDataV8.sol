@@ -48,11 +48,12 @@ library GetPriceFeedDataV8 {
         uint8 _decimalPlace
     ) internal view returns (uint256 tokenAmountInComparitiveValue) {
         uint256 price = getPrice(_contractAddress) * 1e10;
-        if (price * (10**_decimalPlace) * _tokenAmount < type(uint256).max) { //EVM will error before the custom error -- test
+        uint256 checkedAmount = price * (10**_decimalPlace) * _tokenAmount;
+       // if (checkedAmount < type(uint256).max) { //EVM will error before the custom error -- test
         unchecked{
-            tokenAmountInComparitiveValue = (price * (10**_decimalPlace) * _tokenAmount) / 1e18;
+            tokenAmountInComparitiveValue = checkedAmount / 1e18;
             }
-        }
+       // }
     }
 
     /**
@@ -76,13 +77,13 @@ library GetPriceFeedDataV8 {
         address _contractAddress,
         uint8 _decimalPlace
     ) internal view returns (uint256 valueInWei) {
-        if (_comparitiveAmount * 1e18 * (10**_decimalPlace) < type(uint256).max) { ////EVM will error before the custom error -- test
+        uint256 checkedAmount = _comparitiveAmount * 1e18 * (10**_decimalPlace);
+        //if (checkedAmount < type(uint256).max) { ////EVM will error before the custom error -- test
         unchecked {
             uint256 price = getPrice(_contractAddress) * 1e10;
             //require(price != 0, "can not divide by zero"); // EVM already errors even in unchecked
-            valueInWei = (_comparitiveAmount * 1e18 * (10**_decimalPlace)) /
-                ((price * (10**_decimalPlace)) / 1e18);
+            valueInWei = checkedAmount / ((price * (10**_decimalPlace)) / 1e18);
             }
-        } 
+       // } 
     }
 }
