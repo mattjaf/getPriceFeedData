@@ -8,7 +8,6 @@ pragma solidity ^0.8.0;
  *
  */
 library GetPriceFeedDataV8 {
-
     /**
      * @dev Method for externally calling the price feed contract and extracting the answer casted to unit256
      * @return answer is the extracted answer
@@ -21,8 +20,8 @@ library GetPriceFeedDataV8 {
                 mstore(0x00, 0xfeaf968c) // 0xfeaf968c
                 let success := staticcall(gas(), _contractAddress, 28, 32, 0, 64) //<-- loading output to mem
                 // failed
-                if iszero(success) { 
-                    revert(0, 0) 
+                if iszero(success) {
+                    revert(0, 0)
                 }
                 //return
                 answer := mload(32)
@@ -37,7 +36,7 @@ library GetPriceFeedDataV8 {
      * @param _decimalPlace is the amount of decimal postions returned in the answer.
      *
      * Requirements:
-     * - the calculation can not exceed the max value of uint256
+     * - can not exceed the max value of uint256
      *
      *@return tokenAmountInComparitiveValue DISCLAIMER: it does not round up, instead it will truncate the value based on decimals
      *
@@ -49,11 +48,11 @@ library GetPriceFeedDataV8 {
     ) internal view returns (uint256 tokenAmountInComparitiveValue) {
         uint256 price = getPrice(_contractAddress) * 1e10;
         uint256 checkedAmount = price * (10**_decimalPlace) * _tokenAmount;
-       // if (checkedAmount < type(uint256).max) { //EVM will error before the custom error -- test
-        unchecked{
+        // if (checkedAmount < type(uint256).max) { //EVM will error before the custom error -- test
+        unchecked {
             tokenAmountInComparitiveValue = checkedAmount / 1e18;
-            }
-       // }
+        }
+        // }
     }
 
     /**
@@ -65,8 +64,8 @@ library GetPriceFeedDataV8 {
      * @notice Suggest this to be calculated to the 8th decimal place incase a token has value less than a penny.
      *
      * Requirements:
-     * - the calculation can not exceed the max value of uint256
-     * - the calculation can not divide by zero
+     * - can not exceed the max value of uint256
+     * - can not divide by zero
      *
      *@return valueInWei DISCLAIMER: the return result might be a fraction of a wei off due to truncation
      * might have + 1 wei
@@ -83,7 +82,7 @@ library GetPriceFeedDataV8 {
             uint256 price = getPrice(_contractAddress) * 1e10;
             //require(price != 0, "can not divide by zero"); // EVM already errors even in unchecked
             valueInWei = checkedAmount / ((price * (10**_decimalPlace)) / 1e18);
-            }
-       // } 
+        }
+        // }
     }
 }
