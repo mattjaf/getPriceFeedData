@@ -32,4 +32,4 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     log("----------------------------------------------------")
 }
 
-module.exports.tags = ["all", "nftarticles"]
+module.exports.tags = ["all", "getpricefeeddata"]
