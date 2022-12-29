@@ -4,48 +4,14 @@ pragma solidity ^0.8.0;
 
 import "./MockFuzzData.sol";
 
-// echidna-test /src/contracts/test/fuzzing/LibraryFuzzTest.sol --contract LibraryFuzzTest --config /src/contracts/test/fuzzing/config.yaml
-// echidna-test /src/contracts/test/fuzzing/LibraryFuzzTest.sol --contract Test --config /src/contracts/test/fuzzing/config.yaml
-contract LibraryFuzzTest is MockFuzzData {
-    bool public equivalate = true;
-    bool public check = true;
-
-    function SetEquivalateValueToWei(
-        uint256 _amount,
-        //address _contractAddress,
-        uint8 _decimals
-    ) public {
-        if (
-            TraditionalValueToWei(_amount, address(this), _decimals) !=
-            GetPriceFeedDataV8ValueToWei(_amount, address(this), _decimals)
-        ) {
-            equivalate = false;
-        }
-    }
-
-    function SetEquivalateTokenToValue(
-        uint256 _amount,
-        //address _contractAddress,
-        uint8 _decimals
-    ) public {
-        if (
-            TraditionalTokenToValue(_amount, address(this), _decimals) !=
-            GetPriceFeedDataV8TokenToValue(_amount, address(this), _decimals)
-        ) {
-            equivalate = false;
-        }
-    }
-
-    function echidna_test_find_discrepancy() public view returns (bool) {
-        return equivalate == true;
-    }
-}
-
-contract Test {
+/*
+ echidna-test /src/contracts/test/fuzzing/LibraryFuzzTest.sol --contract LibraryFuzzTest --config /src/contracts/test/fuzzing/config.yaml
+*/
+contract LibraryFuzzTest {
     bool public revertCheck = true;
     bool public compareMockValueToWei = true;
     bool public compareMockTokenToValue = true;
-    LibraryFuzzTest TestContract = new LibraryFuzzTest();
+    MockFuzzData TestContract = new MockFuzzData();
 
     function RevertComparisonBetweenTraditionalValueToWei(uint256 _amount, uint8 _decimals)
         public
