@@ -5,6 +5,7 @@
   "scripts": {
     "slither": "slither . --solc-remaps '@openzeppelin=node_modules/@openzeppelin' --exclude naming-convention,external-function,low-level-calls",
     "toolbox": "docker run -it --rm -v %CD%:/src trailofbits/eth-security-toolbox",
+    "fuzz": "docker run -it --rm -v %cd%:/src trailofbits/eth-security-toolbox -c \"cd /src && echidna-test contracts/test/fuzzing/LibraryFuzzTest.sol --contract LibraryFuzzTest --config contracts/test/fuzzing/config.yaml\"",
     "lint": "solhint 'contracts/*.sol'",
     "lint:fix": "solhint 'contracts/**/*.sol' --fix",
     "format": "prettier --write .",
