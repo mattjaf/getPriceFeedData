@@ -10,7 +10,6 @@ pragma solidity ^0.8.0;
 library GetPriceFeedDataV8 {
     /**
      * @dev Method for externally calling the price feed contract and extracting the answer casted to unit256
-     *
      * @notice Delivers the current price conversion data with gas optimizations
      *
      */
