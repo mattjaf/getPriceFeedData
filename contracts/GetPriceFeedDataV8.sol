@@ -10,21 +10,22 @@ pragma solidity ^0.8.0;
 library GetPriceFeedDataV8 {
     /**
      * @dev Method for externally calling the price feed contract and extracting the answer casted to unit256
-     * @return answer is the extracted answer
+     *
+     * @notice Delivers the current price conversion data with gas optimizations
      *
      */
-    function getPrice(address _contractAddress) internal view returns (uint256 answer) {
+    function getPrice(address _contractAddress) internal view returns (uint256 price) {
         unchecked {
             assembly {
-                //store function selector
-                mstore(0x00, 0xfeaf968c) // 0xfeaf968c
+                ///@dev store function selector
+                mstore(0x00, 0xfeaf968c)
+                ///@dev allocates 64 bytes overwriting slot 0
                 let success := staticcall(gas(), _contractAddress, 28, 32, 0, 64) //<-- loading output to mem
-                // failed
                 if iszero(success) {
                     revert(0, 0)
                 }
-                //return
-                answer := mload(32)
+                ///@dev returns slot 1
+                price := mload(32)
             }
         }
     }
@@ -36,7 +37,7 @@ library GetPriceFeedDataV8 {
      * @param _decimalPlace is the amount of decimal postions returned in the answer.
      *
      * Requirements:
-     * - can not exceed the max value of uint256
+     * - checkedAmount can not exceed the max value of uint256
      *
      *@return tokenAmountInComparitiveValue DISCLAIMER: it does not round up, instead it will truncate the value based on decimals
      *
@@ -64,7 +65,7 @@ library GetPriceFeedDataV8 {
      * @notice Suggest this to be calculated to the 8th decimal place incase a token has value less than a penny.
      *
      * Requirements:
-     * - can not exceed the max value of uint256
+     * - checkedAmount can not exceed the max value of uint256
      * - can not divide by zero
      *
      *@return valueInWei DISCLAIMER: the return result might be a fraction of a wei off due to truncation
