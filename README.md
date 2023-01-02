@@ -56,7 +56,7 @@ yarn hardhat deploy
 ```
 or
 ```
-yarn hardhat deploy --networkName
+yarn hardhat deploy --network networkName
 ```
 
 
