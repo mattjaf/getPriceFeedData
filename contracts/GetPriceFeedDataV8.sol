@@ -70,7 +70,7 @@ library GetPriceFeedDataV8 {
      * - can not divide by zero
      *
      *@return valueInWei DISCLAIMER: the return result might be a fraction of a wei off due to truncation
-     * @notice truncation -- user may have to implement `+ 1` wei within their conditonal check on the inheriting contract
+     * @notice truncation -- user may have to implement `+ 1` wei to the returned result on the inheriting contract
      *
      */
     function valueToWei(
