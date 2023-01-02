@@ -60,11 +60,10 @@ import "../GetPriceFeedDataV8.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract CallingContract {
-
     uint256 public constant MINIMUM_USD = 50 * 10**18;
     using GetPriceFeedDataV8 for uint256;
     //can be used to charge a fixed fee on supported tokens
-    mapping(address=>address) tokenAddressToPriceFeedAddress; 
+    mapping(address => address) tokenAddressToPriceFeedAddress;
 
     function getTokenToValue(
         uint256 _amount,
@@ -74,10 +73,11 @@ contract CallingContract {
         return _amount.tokenToValue(_contractAddress, 8);
     }
 
-    function getValueToWei(
-        uint256 _amount,
-        address _contractAddress
-    ) public view returns (uint256) {
+    function getValueToWei(uint256 _amount, address _contractAddress)
+        public
+        view
+        returns (uint256)
+    {
         return _amount.valueToWei(_contractAddress, 8) + 1;
     }
 
@@ -92,16 +92,13 @@ contract CallingContract {
         IERC20(_tokenAddress).transferFrom(tx.origin, address(this), tokenFee);
     }
 
-    function PayableConditionalCheck(
-        address _contractAddress
-    ) public payable {
+    function PayableConditionalCheck(address _contractAddress) public payable {
         require(
             msg.value.tokenToValue(_contractAddress, 8) >= MINIMUM_USD,
             "You need to spend more ETH!"
         );
         //logic body
     }
-    
 }
 ```
 
