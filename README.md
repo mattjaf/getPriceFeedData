@@ -75,7 +75,7 @@ contract CallingContract {
         uint256 _amount,
         address _contractAddress
     ) public view returns (uint256) {
-        return _amount.valueToWei(_contractAddress, 8);
+        return _amount.valueToWei(_contractAddress, 8) + 1;
     }
 
     function conditionalCheck(
