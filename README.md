@@ -60,19 +60,22 @@ import "../GetPriceFeedDataV8.sol";
 
 contract CallingContract {
 
+    uint256 public constant MINIMUM_USD = 50 * 10**18;
+    using GetPriceFeedDataV8 for uint256;
+
     function getTokenToValue(
         uint256 _amount,
         address _contractAddress,
         uint8 _decimals
     ) public view returns (uint256) {
-        return GetPriceFeedDataV8.tokenToValue(_amount, _contractAddress, _decimals);
+        return _amount.tokenToValue(_contractAddress, 8);
     }
 
     function getValueToWei(
         uint256 _amount,
         address _contractAddress
     ) public view returns (uint256) {
-        return GetPriceFeedDataV8.valueToWei(_amount, _contractAddress, 8);
+        return _amount.valueToWei(_contractAddress, 8);
     }
 
     function conditionalCheck(
@@ -83,6 +86,17 @@ contract CallingContract {
         require(minimumAmountInUSD >= getValueToWei(_amount, _contractAddress));
         //logic body
     }
+
+    function PayableConditionalCheck(
+        address _contractAddress
+    ) public payable {
+        require(
+            msg.value.tokenToValue(_contractAddress, 8) >= MINIMUM_USD,
+            "You need to spend more ETH!"
+        );
+        //logic body
+    }
+    
 }
 ```
 
