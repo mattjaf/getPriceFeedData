@@ -4,14 +4,14 @@ pragma solidity ^0.8.0;
 
 /**
  * @dev Provides a set of functions to operate with Chainlink's Price Feed contracts.
- * contract addresses can be found at https://docs.chain.link/data-feeds/price-feeds/addresses
- * conversion values can be viewed here: https://data.chain.link/
+ * Contract addresses can be found at https://docs.chain.link/data-feeds/price-feeds/addresses
+ * Conversion values can be viewed here: https://data.chain.link/
  *
  */
 library GetPriceFeedDataV8 {
     /**
-     * @dev Method for externally calling the price feed contract and extracting the answer casted to unit256
-     * @notice Delivers the current price conversion data with gas optimizations
+     * @dev Method for externally calling the price feed contract and extracting the answer casted to unit256.
+     * @notice Delivers the current price conversion data with gas optimizations.
      *
      */
     function getPrice(address _contractAddress) internal view returns (uint256 price) {
@@ -33,16 +33,14 @@ library GetPriceFeedDataV8 {
     /**
      * @dev Method for retrieving the current conversion value of the token to the `_decimalPlace`.
      * @param _tokenAmount is the amount of tokens to convert to the comparitive value.
-     * @param _contractAddress is the address of the chainlink price feed contract address.
-     * @param _decimalPlace is the amount of decimal postions returned in the answer.
-     *
-     * @notice Suggest this to be calculated to the 8th(+) decimal place incase a token has value less than `10^-8`
+     * @param _contractAddress is the address of the chainlink price feed contract.
+     * @param _decimalPlace is the amount of decimal postions less than `1` returned in `tokenAmountInComparitiveValue`.
      *
      * Requirements:
      * - checkedAmount can not exceed the max value of uint256
      *
      *@return tokenAmountInComparitiveValue DISCLAIMER: it does not round up, instead it will truncate the value based on decimals
-     * @notice truncation -- this will return `0` if the value is less than one and `_decimalPlace` is set improperly
+     * @notice truncation -- this will return `0` if the value is less than `1` and `_decimalPlace` is set improperly
      *
      */
     function tokenToValue(
@@ -61,8 +59,8 @@ library GetPriceFeedDataV8 {
     /**
      * @dev Method for retrieving the price conversion amount in WEI equal to the provided token amount.
      * @param _comparitiveAmount is the comparitive value amount to get converted in to WEI.
-     * @param _contractAddress is the address of the chainlink price feed contract address.
-     * @param _decimalPlace is the decimal place of pricefeed data
+     * @param _contractAddress is the address of the chainlink price feed contract.
+     * @param _decimalPlace is the decimal place of the pricefeed data less that `1`.
      *
      * @notice Suggest this to be calculated to the 8th(+) decimal place incase a token has value less than `10^-8`.
      *
