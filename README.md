@@ -9,6 +9,13 @@
   - You'll know you've installed yarn right if you can run:
     - `yarn --version` and get an output like: `x.x.x`
     - You might need to install it with `npm`
+- [docker](https://www.docker.com/)
+  - You'll know you've installed docker right if you can run:
+    - `docker --verson` and get an output like: `Docker version x.x.x`
+- [eth-security-toolbox](https://github.com/trailofbits/eth-security-toolbox)
+- [Python](https://www.python.org/)
+  - tested with python 3.9 using pyenv
+- [slither-analyzer](https://github.com/crytic/slither)
 
 ## Quickstart
 
