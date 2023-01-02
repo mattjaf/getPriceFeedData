@@ -108,7 +108,7 @@ contract CallingContract {
 
     function PayableConditionalCheck(address _contractAddress) public payable {
         require(
-            msg.value.tokenToValue(_contractAddress, 8) >= MINIMUM_USD,
+            msg.value.tokenToValue(_contractAddress, 0) >= MINIMUM_USD,
             "You need to spend more ETH!"
         );
         //logic body
