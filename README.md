@@ -57,11 +57,14 @@ example
 pragma solidity ^0.8.0;
 
 import "../GetPriceFeedDataV8.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract CallingContract {
 
     uint256 public constant MINIMUM_USD = 50 * 10**18;
     using GetPriceFeedDataV8 for uint256;
+    //can be used to charge a fixed fee on supported tokens
+    mapping(address=>address) tokenAddressToPriceFeedAddress; 
 
     function getTokenToValue(
         uint256 _amount,
@@ -80,11 +83,13 @@ contract CallingContract {
 
     function conditionalCheck(
         uint256 _amount,
-        address _contractAddress
+        address _contractAddress,
+        address _tokenAddress
     ) public {
-        uint256 minimumAmountInUSD = getValueToWei(50, _contractAddress);
-        require(minimumAmountInUSD <= getValueToWei(_amount, _contractAddress));
-        //logic body
+        require(_amount >= 50, "You need to send more tokens");
+        uint256 tokenFee = getValueToWei(50, _contractAddress);
+        // this must be approved externally
+        IERC20(_tokenAddress).transferFrom(tx.origin, address(this), tokenFee);
     }
 
     function PayableConditionalCheck(
