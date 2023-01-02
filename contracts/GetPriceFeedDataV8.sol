@@ -47,12 +47,11 @@ library GetPriceFeedDataV8 {
         uint8 _decimalPlace
     ) internal view returns (uint256 tokenAmountInComparitiveValue) {
         uint256 price = getPrice(_contractAddress) * 1e10;
+        ///@notice overFlow protection -- EVM will error if the calcuated result is greater then unit256
         uint256 checkedAmount = price * (10**_decimalPlace) * _tokenAmount;
-        // if (checkedAmount < type(uint256).max) { //EVM will error before the custom error -- test
         unchecked {
             tokenAmountInComparitiveValue = checkedAmount / 1e18;
         }
-        // }
     }
 
     /**
@@ -76,13 +75,12 @@ library GetPriceFeedDataV8 {
         address _contractAddress,
         uint8 _decimalPlace
     ) internal view returns (uint256 valueInWei) {
+        ///@notice overFlow protection -- EVM will error if the calcuated result is greater then unit256
         uint256 checkedAmount = _comparitiveAmount * 1e18 * (10**_decimalPlace);
-        //if (checkedAmount < type(uint256).max) { ////EVM will error before the custom error -- test
         unchecked {
             uint256 price = getPrice(_contractAddress) * 1e10;
-            //require(price != 0, "can not divide by zero"); // EVM already errors even in unchecked
+            ///@notice division by zero -- EVM will error in unchecked for divion by zero if `getPrice` returns `0`
             valueInWei = checkedAmount / ((price * (10**_decimalPlace)) / 1e18);
         }
-        // }
     }
 }
