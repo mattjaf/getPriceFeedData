@@ -35,6 +35,8 @@ library GetPriceFeedDataV8 {
      * @param _contractAddress is the address of the chainlink price feed contract address.
      * @param _decimalPlace is the amount of decimal postions returned in the answer.
      *
+     * @notice Suggest this to be calculated to the 8th decimal place incase a token has value less than `1`
+     *
      * Requirements:
      * - checkedAmount can not exceed the max value of uint256
      *
@@ -61,7 +63,7 @@ library GetPriceFeedDataV8 {
      * @param _contractAddress is the address of the chainlink price feed contract address.
      * @param _decimalPlace is the decimal place of pricefeed data
      *
-     * @notice Suggest this to be calculated to the 8th decimal place incase a token has value less than a penny.
+     * @notice Suggest this to be calculated to the 8th decimal place incase a token has value less than `1`.
      *
      * Requirements:
      * - checkedAmount can not exceed the max value of uint256
