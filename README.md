@@ -70,7 +70,7 @@ contract CallingContract {
         address _contractAddress,
         uint8 _decimals
     ) public view returns (uint256) {
-        return _amount.tokenToValue(_contractAddress, 8);
+        return _amount.tokenToValue(_contractAddress, _decimals);
     }
 
     function getValueToWei(uint256 _amount, address _contractAddress)
