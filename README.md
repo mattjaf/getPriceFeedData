@@ -49,10 +49,14 @@ Head over to [faucets.polygon.technology](https://faucet.polygon.technology/) an
   - They also have a faucet built into the polygon discord channel[polygon discord invite](https://discord.gg/RZPruHJe) It is located under support
   - you can also ask me @mattjaf#1211 and I can possibly send a substantial amount
 
-3. Deploy to localhost
+3. Deploy to mainnet fork or testnet
 
 ```
 yarn hardhat deploy
+```
+or
+```
+yarn hardhat deploy --networkName
 ```
 
 
