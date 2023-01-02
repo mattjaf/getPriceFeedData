@@ -18,15 +18,11 @@ cd getPriceFeedData
 yarn
 ```
 
-### Optional Gitpod
-
-If you can't or don't want to run and install locally, you can work with this repo in Gitpod. If you do this, you can skip the `clone this repo` part.
-
 # Deployment to a testnet or mainnet
 
 1. Setup environment variabltes
 
-You'll want to set your `MUMBAI_RPC_URL` and `PRIVATE_KEY` as environment variables. You can add them to a `.env` file, similar to what you see in `.env.example`.
+You'll want to set your `ALCHEMY_MAINNET_RPC_URL` and `PRIVATE_KEY` as environment variables. You can add them to a `.env` file, similar to what you see in `.env.example`.
 
 - `PRIVATE_KEY`: The private key of your account (like from [metamask](https://metamask.io/)). **NOTE:** FOR DEVELOPMENT, PLEASE USE A KEY THAT DOESN'T HAVE ANY REAL FUNDS ASSOCIATED WITH IT.
   - You can [learn how to export it here](https://metamask.zendesk.com/hc/en-us/articles/360015289632-How-to-Export-an-Account-Private-Key).
@@ -52,29 +48,37 @@ yarn hardhat deploy
 
 # Usage
 
-deploy to testnet
+import GetPriceFeedDatav8 into your smart contract and call `getPrice`, `valueToWei`, or `valueToToken`
+
+example
+```js
+import "../GetPriceFeedDataV8.sol";
+
+contract CallingContract {
+    function GetPriceFeedDataV8TokenToValue(
+        uint256 _amount,
+        address _contractAddress,
+        uint8 _decimals
+    ) public view returns (uint256) {
+        return GetPriceFeedDataV8.tokenToValue(_amount, _contractAddress, _decimals);
+    }
+}
 ```
-yarn hardhat deploy --network networkName
-```
-such as,
-```
-yarn hardhat deploy --network mumbai
-```
 
-
-
-supported networks in hardhat.config.js include, but limited to:
-
-localhost, sepolia, rinkeby, kovan, mainnet, polygon, mumbai
-
-
+Please refer to that [natSpec](./contracts/GetPriceFeedDataV8.sol) comments within the contract for disclaimers and usage details
 
 ## Testing
 
+tested on mainnet fork
 ```
 yarn hardhat test
 ```
-
 ```
 yarn coverage
+```
+```
+yarn fuzz
+```
+```
+yarn slither
 ```
