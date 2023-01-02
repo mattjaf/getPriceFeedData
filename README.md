@@ -65,7 +65,7 @@ contract CallingContract {
 }
 ```
 
-Please refer to that [natSpec](./contracts/GetPriceFeedDataV8.sol) comments within the contract for disclaimers and usage details
+Please refer to the [natSpec](./contracts/GetPriceFeedDataV8.sol) comments within the contract for disclaimers and usage details
 
 ## Testing
 
