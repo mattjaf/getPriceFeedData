@@ -83,7 +83,7 @@ contract CallingContract {
         address _contractAddress
     ) public {
         uint256 minimumAmountInUSD = getValueToWei(50, _contractAddress);
-        require(minimumAmountInUSD >= getValueToWei(_amount, _contractAddress));
+        require(minimumAmountInUSD <= getValueToWei(_amount, _contractAddress));
         //logic body
     }
 
