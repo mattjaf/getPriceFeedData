@@ -30,7 +30,7 @@ library GetPriceFeedDataV8 {
     }
 
     /**
-     * @dev Method for retrieving the current value of the token.
+     * @dev Method for retrieving the current conversion value of the token to the `_decimalPlace`.
      * @param _tokenAmount is the amount of tokens to convert to the comparitive value.
      * @param _contractAddress is the address of the chainlink price feed contract address.
      * @param _decimalPlace is the amount of decimal postions returned in the answer.
@@ -39,6 +39,7 @@ library GetPriceFeedDataV8 {
      * - checkedAmount can not exceed the max value of uint256
      *
      *@return tokenAmountInComparitiveValue DISCLAIMER: it does not round up, instead it will truncate the value based on decimals
+     * @notice truncation -- this will return `0` if the value is less than one and `_decimalPlace` is set improperly
      *
      */
     function tokenToValue(
@@ -55,7 +56,7 @@ library GetPriceFeedDataV8 {
     }
 
     /**
-     * @dev Method for retrieving the amount of WEI equal to the provided value.
+     * @dev Method for retrieving the price conversion amount in WEI equal to the provided token amount.
      * @param _comparitiveAmount is the comparitive value amount to get converted in to WEI.
      * @param _contractAddress is the address of the chainlink price feed contract address.
      * @param _decimalPlace is the decimal place of pricefeed data
@@ -67,7 +68,7 @@ library GetPriceFeedDataV8 {
      * - can not divide by zero
      *
      *@return valueInWei DISCLAIMER: the return result might be a fraction of a wei off due to truncation
-     * might have + 1 wei
+     * @notice truncation -- user may have to implement `+ 1` wei within their conditonal check on the inheriting contract
      *
      */
     function valueToWei(
@@ -75,7 +76,7 @@ library GetPriceFeedDataV8 {
         address _contractAddress,
         uint8 _decimalPlace
     ) internal view returns (uint256 valueInWei) {
-        ///@notice overFlow protection -- EVM will error if the calcuated result is greater then unit256
+        ///@notice overFlow protection -- EVM will error if the calcuated result is greater then `type(unit256).max`
         uint256 checkedAmount = _comparitiveAmount * 1e18 * (10**_decimalPlace);
         unchecked {
             uint256 price = getPrice(_contractAddress) * 1e10;
