@@ -52,15 +52,36 @@ import GetPriceFeedDatav8 into your smart contract and call `getPrice`, `valueTo
 
 example
 ```js
+//SPDX-License-Identifier: MIT
+
+pragma solidity ^0.8.0;
+
 import "../GetPriceFeedDataV8.sol";
 
 contract CallingContract {
-    function GetPriceFeedDataV8TokenToValue(
+
+    function getTokenToValue(
         uint256 _amount,
         address _contractAddress,
         uint8 _decimals
     ) public view returns (uint256) {
         return GetPriceFeedDataV8.tokenToValue(_amount, _contractAddress, _decimals);
+    }
+
+    function getValueToWei(
+        uint256 _amount,
+        address _contractAddress
+    ) public view returns (uint256) {
+        return GetPriceFeedDataV8.valueToWei(_amount, _contractAddress, 8);
+    }
+
+    function conditionalCheck(
+        uint256 _amount,
+        address _contractAddress
+    ) public {
+        uint256 minimumAmountInUSD = getValueToWei(50, _contractAddress);
+        require(minimumAmountInUSD >= getValueToWei(_amount, _contractAddress));
+        //logic body
     }
 }
 ```
