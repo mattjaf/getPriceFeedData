@@ -12,10 +12,13 @@
 - [docker](https://www.docker.com/)
   - You'll know you've installed docker right if you can run:
     - `docker --verson` and get an output like: `Docker version x.x.x`
-- [eth-security-toolbox](https://github.com/trailofbits/eth-security-toolbox)
 - [Python](https://www.python.org/)
+  - You'll know you installed python right if you can run:
+  - `python --version` and get an output like `Python x.x.x`
   - tested with python 3.9 using pyenv
 - [slither-analyzer](https://github.com/crytic/slither)
+  - You'll know you installed slither right if you can run:
+  - `slither --version` and get an output like `Python x.x.x`
 
 ## Quickstart
 
