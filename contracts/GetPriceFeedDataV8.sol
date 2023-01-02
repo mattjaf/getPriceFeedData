@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 /**
  * @dev Provides a set of functions to operate with Chainlink's Price Feed contracts.
  * contract addresses can be found at https://docs.chain.link/data-feeds/price-feeds/addresses
+ * conversion values can be viewed here: https://data.chain.link/
  *
  */
 library GetPriceFeedDataV8 {
@@ -35,7 +36,7 @@ library GetPriceFeedDataV8 {
      * @param _contractAddress is the address of the chainlink price feed contract address.
      * @param _decimalPlace is the amount of decimal postions returned in the answer.
      *
-     * @notice Suggest this to be calculated to the 8th decimal place incase a token has value less than `1`
+     * @notice Suggest this to be calculated to the 8th(+) decimal place incase a token has value less than `10^-8`
      *
      * Requirements:
      * - checkedAmount can not exceed the max value of uint256
@@ -63,7 +64,7 @@ library GetPriceFeedDataV8 {
      * @param _contractAddress is the address of the chainlink price feed contract address.
      * @param _decimalPlace is the decimal place of pricefeed data
      *
-     * @notice Suggest this to be calculated to the 8th decimal place incase a token has value less than `1`.
+     * @notice Suggest this to be calculated to the 8th(+) decimal place incase a token has value less than `10^-8`.
      *
      * Requirements:
      * - checkedAmount can not exceed the max value of uint256
