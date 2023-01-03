@@ -70,7 +70,7 @@ example
 
 pragma solidity ^0.8.0;
 
-import "../GetPriceFeedDataV8.sol";
+import "https://github.com/mattjaf/getPriceFeedData/blob/main/contracts/GetPriceFeedDataV8.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 
 contract CallingContract {
