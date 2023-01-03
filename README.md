@@ -18,7 +18,7 @@
   - tested with python 3.9 using pyenv
 - [slither-analyzer](https://github.com/crytic/slither)
   - You'll know you installed slither right if you can run:
-  - `slither --version` and get an output like `Python x.x.x`
+  - `slither --version` and get an output like `x.x.x`
 
 ## Quickstart
 
